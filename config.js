@@ -14,7 +14,7 @@ const CONFIG = {
     // Información de contacto
     contacto: {
         email: "marketing@ideasdevops.com",
-        telefono: "+54 9 11 1234-5678",
+        telefono: "+54 9 261 315-1000",
         direccion: "Buenos Aires, Argentina",
         horario: "Lunes a Viernes, 9:00 - 18:00"
     },
