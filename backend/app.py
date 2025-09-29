@@ -29,7 +29,7 @@ SMTP_CONFIG = {
 
 # Configuración del curso
 COURSE_INFO = {
-    'name': 'Curso de Ventas, Redes Sociales e Inteligencia Artificial',
+    'name': 'Curso de Desarrollo No-Code con IA',
     'price': '$69 USD',
     'duration': '8 horas total (4 clases de 2hs)',
     'sessions': '4 clases online en vivo',
@@ -71,9 +71,9 @@ def send_download_email(form_data):
     try:
         # Mapear recursos a nombres descriptivos
         resource_names = {
-            'plan-marketing': 'Plantilla de Plan de Marketing',
-            'checklist-ecommerce': 'Checklist de E-commerce',
-            'plantillas-contenido': 'Plantillas de Contenido'
+            'guia-nocode': 'Guía de Desarrollo No-Code',
+            'checklist-deploy': 'Checklist de Deploy',
+            'templates-automatizacion': 'Templates de Automatización'
         }
         
         resource_name = resource_names.get(form_data['resource'], form_data['resource'])
@@ -126,7 +126,7 @@ def send_download_email(form_data):
                     <div style="background: #f0f9ff; padding: 20px; margin: 20px 0; border-radius: 8px; border: 1px solid #0ea5e9; text-align: center;">
                         <h3 style="color: #0c4a6e; margin-bottom: 15px;">💳 ¿Listo para el Curso Completo?</h3>
                         <p style="margin-bottom: 15px; color: #1e40af;">Aprovecha nuestra oferta especial de <strong>$69 USD</strong> (antes $199)</p>
-                        <a href="https://buy.stripe.com/dRm4gA1sUbk26A76A91ZS05" 
+                        <a href="https://buy.stripe.com/dRm4gA8Vm3RA5w39Ml1ZS06" 
                            style="display: inline-block; background: #10b981; color: white; padding: 12px 24px; text-decoration: none; border-radius: 25px; font-weight: bold; margin: 5px;" 
                            target="_blank">
                             🚀 Inscribirse Ahora - $69 USD
@@ -268,7 +268,7 @@ def generate_student_email_html(form_data, payment_links=None):
             <h3>💳 Información de Pago</h3>
             <p>Puedes realizar el pago de <strong>$69 USD</strong> usando el siguiente enlace seguro:</p>
             <div class="payment-buttons">
-                <a href="https://buy.stripe.com/dRm4gA1sUbk26A76A91ZS05" class="payment-btn" target="_blank">
+                <a href="https://buy.stripe.com/dRm4gA8Vm3RA5w39Ml1ZS06" class="payment-btn" target="_blank">
                     💳 Pagar con Stripe - $69 USD
                 </a>
             </div>

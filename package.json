@@ -1,7 +1,7 @@
 {
-  "name": "marketing-ia-landing",
+  "name": "nocode-ia-landing",
   "version": "1.0.0",
-  "description": "Landing page para el curso de Ventas, Redes Sociales e Inteligencia Artificial",
+  "description": "Landing page para el curso de Desarrollo No-Code con IA",
   "main": "index.html",
   "scripts": {
     "start": "node start-server.js",
@@ -11,10 +11,12 @@
     "test": "echo 'No tests specified'"
   },
   "keywords": [
-    "marketing",
-    "ecommerce",
-    "redes-sociales",
+    "nocode",
+    "desarrollo",
     "inteligencia-artificial",
+    "docker",
+    "ubuntu",
+    "automatizacion",
     "curso",
     "landing-page"
   ],

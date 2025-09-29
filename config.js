@@ -2,11 +2,11 @@
 const CONFIG = {
     // Información del curso
     curso: {
-        titulo: "Curso de Ventas, Redes Sociales e Inteligencia Artificial",
-        subtitulo: "Domina el e-commerce y el marketing digital en solo 4 horas",
-        duracion: "4 horas",
-        clases: "2 clases",
-        precio: 199,
+        titulo: "Curso de Desarrollo No-Code con IA",
+        subtitulo: "Crea sitios web, bots y automatizaciones sin programar usando IA",
+        duracion: "8 horas total (4 clases de 2hs)",
+        clases: "4 clases",
+        precio: 69,
         moneda: "$",
         certificado: true
     },
@@ -95,9 +95,9 @@ const CONFIG = {
 
     // Configuración de SEO
     seo: {
-        titulo: "Curso de Ventas, Redes Sociales e Inteligencia Artificial",
-        descripcion: "Aprende e-commerce y marketing digital en 4 horas. Incluye Meta Ads, Google Analytics, redes sociales y más.",
-        palabras_clave: "curso marketing digital, e-commerce, redes sociales, meta ads, google analytics",
+        titulo: "Curso de Desarrollo No-Code con IA",
+        descripcion: "Aprende a crear sitios web, bots y automatizaciones sin programar usando IA. Deploy en VPS con Docker y Ubuntu.",
+        palabras_clave: "curso desarrollo no-code, IA, sitios web, bots, automatizaciones, docker, ubuntu, cursor",
         imagen_og: "https://ejemplo.com/imagen-og.jpg",
         url_canonica: "https://ejemplo.com"
     },
