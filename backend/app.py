@@ -30,7 +30,7 @@ SMTP_CONFIG = {
 # Configuración del curso
 COURSE_INFO = {
     'name': 'Curso de Ventas, Redes Sociales e Inteligencia Artificial',
-    'price': '$60 USD',
+    'price': '$69 USD',
     'duration': '8 horas total (4 clases de 2hs)',
     'sessions': '4 clases online en vivo',
     'frequency': '1 clase por semana',
@@ -171,7 +171,7 @@ def generate_student_email_html(form_data, payment_links=None):
         payment_section = """
         <div class="payment-section">
             <h3>💳 Información de Pago</h3>
-            <p>El pago de <strong>$60 USD</strong> se procesará próximamente. Te enviaremos los enlaces de pago en breve.</p>
+            <p>El pago de <strong>$69 USD</strong> se procesará próximamente. Te enviaremos los enlaces de pago en breve.</p>
         </div>
         """
     
