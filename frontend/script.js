@@ -45,18 +45,54 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Validate form
             if (validateForm(data)) {
-                // Show success message
-                showNotification('¡Inscripción exitosa! Te contactaremos pronto.', 'success');
+                // Show loading state
+                const submitBtn = registrationForm.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando...';
+                submitBtn.disabled = true;
                 
-                // Reset form
-                registrationForm.reset();
-                
-                // In a real application, you would send the data to a server
-                console.log('Form data:', data);
+                // Send data to backend
+                sendRegistrationData(data)
+                    .then(response => {
+                        if (response.success) {
+                            showNotification('¡Inscripción exitosa! Revisa tu correo electrónico para más detalles.', 'success');
+                            registrationForm.reset();
+                        } else {
+                            showNotification(response.message || 'Error al procesar la inscripción. Inténtalo de nuevo.', 'error');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        showNotification('Error de conexión. Por favor, inténtalo de nuevo.', 'error');
+                    })
+                    .finally(() => {
+                        // Restore button state
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                    });
             }
         });
     }
 });
+
+// Send registration data to backend
+async function sendRegistrationData(data) {
+    try {
+        const response = await fetch('/api/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
+        
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        console.error('Error sending data:', error);
+        throw error;
+    }
+}
 
 // Form validation
 function validateForm(data) {
