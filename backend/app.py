@@ -122,6 +122,16 @@ def send_download_email(form_data):
                     
                     <p><strong>¡No te pierdas nuestro curso completo!</strong></p>
                     <p>Si te gustó este recurso, imagínate todo lo que puedes aprender en nuestro curso completo de Marketing Digital.</p>
+                    
+                    <div style="background: #f0f9ff; padding: 20px; margin: 20px 0; border-radius: 8px; border: 1px solid #0ea5e9; text-align: center;">
+                        <h3 style="color: #0c4a6e; margin-bottom: 15px;">💳 ¿Listo para el Curso Completo?</h3>
+                        <p style="margin-bottom: 15px; color: #1e40af;">Aprovecha nuestra oferta especial de <strong>$69 USD</strong> (antes $199)</p>
+                        <a href="https://buy.stripe.com/dRm4gA1sUbk26A76A91ZS05" 
+                           style="display: inline-block; background: #10b981; color: white; padding: 12px 24px; text-decoration: none; border-radius: 25px; font-weight: bold; margin: 5px;" 
+                           target="_blank">
+                            🚀 Inscribirse Ahora - $69 USD
+                        </a>
+                    </div>
                 </div>
                 
                 <div class="footer">
@@ -256,7 +266,12 @@ def generate_student_email_html(form_data, payment_links=None):
         payment_section = """
         <div class="payment-section">
             <h3>💳 Información de Pago</h3>
-            <p>El pago de <strong>$69 USD</strong> se procesará próximamente. Te enviaremos los enlaces de pago en breve.</p>
+            <p>Puedes realizar el pago de <strong>$69 USD</strong> usando el siguiente enlace seguro:</p>
+            <div class="payment-buttons">
+                <a href="https://buy.stripe.com/dRm4gA1sUbk26A76A91ZS05" class="payment-btn" target="_blank">
+                    💳 Pagar con Stripe - $69 USD
+                </a>
+            </div>
         </div>
         """
     
