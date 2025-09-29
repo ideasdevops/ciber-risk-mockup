@@ -66,6 +66,91 @@ def send_email(to_email, subject, html_content, text_content=None):
     except Exception as e:
         return False, f"Error al enviar correo: {str(e)}"
 
+def send_download_email(form_data):
+    """Enviar email con enlace de descarga"""
+    try:
+        # Mapear recursos a nombres descriptivos
+        resource_names = {
+            'plan-marketing': 'Plantilla de Plan de Marketing',
+            'checklist-ecommerce': 'Checklist de E-commerce',
+            'plantillas-contenido': 'Plantillas de Contenido'
+        }
+        
+        resource_name = resource_names.get(form_data['resource'], form_data['resource'])
+        
+        # Crear mensaje de descarga
+        download_message = f"""
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Descarga de Recurso - Marketing IA</title>
+            <style>
+                body {{ font-family: Arial, sans-serif; line-height: 1.6; color: #333; }}
+                .container {{ max-width: 600px; margin: 0 auto; padding: 20px; }}
+                .header {{ background: #4f46e5; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0; }}
+                .content {{ background: #f9fafb; padding: 20px; border-radius: 0 0 8px 8px; }}
+                .download-box {{ background: white; padding: 20px; margin: 20px 0; border-radius: 8px; border: 2px solid #10b981; text-align: center; }}
+                .download-btn {{ background: #10b981; color: white; padding: 15px 30px; text-decoration: none; border-radius: 25px; display: inline-block; font-weight: bold; }}
+                .footer {{ text-align: center; margin-top: 20px; color: #666; font-size: 12px; }}
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <div class="header">
+                    <h1>📥 ¡Tu Recurso Está Listo!</h1>
+                    <p>Marketing IA - IdeasDevOps</p>
+                </div>
+                
+                <div class="content">
+                    <h2>¡Hola {form_data.get('email', 'Usuario')}!</h2>
+                    
+                    <p>Gracias por tu interés en nuestros recursos de marketing digital. Tu descarga está lista:</p>
+                    
+                    <div class="download-box">
+                        <h3>📋 {resource_name}</h3>
+                        <p>Haz clic en el botón para descargar tu recurso gratuito:</p>
+                        <a href="#" class="download-btn">📥 Descargar Ahora</a>
+                    </div>
+                    
+                    <p><strong>¿Necesitas ayuda?</strong></p>
+                    <p>Si tienes alguna pregunta sobre el recurso o necesitas asistencia, no dudes en contactarnos:</p>
+                    <ul>
+                        <li>📧 Email: marketing@ideasdevops.com</li>
+                        <li>📱 WhatsApp: +54 9 261 315-1000</li>
+                    </ul>
+                    
+                    <p><strong>¡No te pierdas nuestro curso completo!</strong></p>
+                    <p>Si te gustó este recurso, imagínate todo lo que puedes aprender en nuestro curso completo de Marketing Digital.</p>
+                </div>
+                
+                <div class="footer">
+                    <p>© 2024 IdeasDevOps - Marketing IA</p>
+                    <p>Transformando negocios con estrategias digitales efectivas</p>
+                </div>
+            </div>
+        </body>
+        </html>
+        """
+        
+        # Enviar email usando la función existente
+        success, message = send_email(
+            form_data['email'],
+            f"📥 {resource_name} - Descarga Lista",
+            download_message
+        )
+        
+        if success:
+            print(f"✅ Email de descarga enviado: {form_data['email']} - {resource_name}")
+            return True
+        else:
+            print(f"❌ Error enviando email de descarga: {message}")
+            return False
+        
+    except Exception as e:
+        print(f"❌ Error enviando email de descarga: {str(e)}")
+        return False
+
 def generate_admin_email_html(form_data):
     """Genera el HTML para el correo del administrador"""
     return f"""
@@ -340,6 +425,63 @@ def register():
         return jsonify({
             'success': False,
             'message': f'Error interno del servidor: {str(e)}'
+        }), 500
+
+@app.route('/api/download', methods=['POST'])
+def download():
+    """Endpoint para procesar descargas de recursos"""
+    try:
+        # Obtener datos del formulario
+        form_data = request.get_json()
+        
+        if not form_data:
+            return jsonify({
+                'success': False,
+                'message': 'No se recibieron datos del formulario'
+            }), 400
+        
+        # Validar campos requeridos
+        required_fields = ['email', 'whatsapp', 'resource']
+        missing_fields = [field for field in required_fields if not form_data.get(field)]
+        
+        if missing_fields:
+            return jsonify({
+                'success': False,
+                'message': f'Faltan campos requeridos: {", ".join(missing_fields)}'
+            }), 400
+        
+        # Validar email
+        if not is_valid_email(form_data['email']):
+            return jsonify({
+                'success': False,
+                'message': 'Email inválido'
+            }), 400
+        
+        # Enviar email de descarga
+        download_message = send_download_email(form_data)
+        
+        if download_message:
+            return jsonify({
+                'success': True,
+                'message': 'Descarga procesada exitosamente. Revisa tu correo electrónico.',
+                'data': {
+                    'email': form_data.get('email'),
+                    'resource': form_data.get('resource'),
+                    'timestamp': datetime.now().isoformat()
+                }
+            })
+        else:
+            return jsonify({
+                'success': False,
+                'message': 'Error al enviar correo electrónico de descarga'
+            }), 500
+    
+    except Exception as e:
+        print(f"Error en el endpoint de descarga: {str(e)}")
+        return jsonify({
+            'success': False,
+            'message': 'Error interno del servidor',
+            'error': str(e)
         }), 500
 
 if __name__ == '__main__':
