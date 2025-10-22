@@ -484,94 +484,94 @@ function createScrollProgress() {
 // Initialize scroll progress
 document.addEventListener('DOMContentLoaded', createScrollProgress);
 
-// Funciones para el modal de descarga
-function openDownloadModal(resource) {
-    document.getElementById('downloadResource').value = resource;
-    document.getElementById('downloadModal').style.display = 'block';
-    document.body.style.overflow = 'hidden';
-}
+// Funciones para el modal de descarga (eliminadas - no aplicables para seguros)
+// function openDownloadModal(resource) {
+//     document.getElementById('downloadResource').value = resource;
+//     document.getElementById('downloadModal').style.display = 'block';
+//     document.body.style.overflow = 'hidden';
+// }
 
-function closeDownloadModal() {
-    document.getElementById('downloadModal').style.display = 'none';
-    document.body.style.overflow = 'auto';
-    document.getElementById('downloadForm').reset();
-}
+// function closeDownloadModal() {
+//     document.getElementById('downloadModal').style.display = 'none';
+//     document.body.style.overflow = 'auto';
+//     document.getElementById('downloadForm').reset();
+// }
 
 // Cerrar modal al hacer clic fuera de él
-window.onclick = function(event) {
-    const modal = document.getElementById('downloadModal');
-    if (event.target === modal) {
-        closeDownloadModal();
-    }
-}
+// window.onclick = function(event) {
+//     const modal = document.getElementById('downloadModal');
+//     if (event.target === modal) {
+//         closeDownloadModal();
+//     }
+// }
 
-// Manejar formulario de descarga
-document.addEventListener('DOMContentLoaded', function() {
-    const downloadForm = document.getElementById('downloadForm');
-    
-    if (downloadForm) {
-        downloadForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(downloadForm);
-            const data = Object.fromEntries(formData);
-            
-            if (validateDownloadForm(data)) {
-                const submitBtn = downloadForm.querySelector('button[type="submit"]');
-                const originalText = submitBtn.innerHTML;
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando...';
-                submitBtn.disabled = true;
-                
-                sendDownloadData(data)
-                    .then(response => {
-                        if (response.success) {
-                            showNotification('¡Descarga iniciada! Revisa tu correo electrónico.', 'success');
-                            closeDownloadModal();
-                        } else {
-                            showNotification(response.message || 'Error al procesar la descarga. Inténtalo de nuevo.', 'error');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        showNotification('Error de conexión. Por favor, inténtalo de nuevo.', 'error');
-                    })
-                    .finally(() => {
-                        submitBtn.innerHTML = originalText;
-                        submitBtn.disabled = false;
-                    });
-            }
-        });
-    }
-});
+// Manejar formulario de descarga (comentado - no aplicable para seguros)
+// document.addEventListener('DOMContentLoaded', function() {
+//     const downloadForm = document.getElementById('downloadForm');
+//     
+//     if (downloadForm) {
+//         downloadForm.addEventListener('submit', function(e) {
+//             e.preventDefault();
+//             
+//             const formData = new FormData(downloadForm);
+//             const data = Object.fromEntries(formData);
+//             
+//             if (validateDownloadForm(data)) {
+//                 const submitBtn = downloadForm.querySelector('button[type="submit"]');
+//                 const originalText = submitBtn.innerHTML;
+//                 submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando...';
+//                 submitBtn.disabled = true;
+//                 
+//                 sendDownloadData(data)
+//                     .then(response => {
+//                         if (response.success) {
+//                             showNotification('¡Descarga iniciada! Revisa tu correo electrónico.', 'success');
+//                             closeDownloadModal();
+//                         } else {
+//                             showNotification(response.message || 'Error al procesar la descarga. Inténtalo de nuevo.', 'error');
+//                         }
+//                     })
+//                     .catch(error => {
+//                         console.error('Error:', error);
+//                         showNotification('Error de conexión. Por favor, inténtalo de nuevo.', 'error');
+//                     })
+//                     .finally(() => {
+//                         submitBtn.innerHTML = originalText;
+//                         submitBtn.disabled = false;
+//                     });
+//             }
+//         });
+//     }
+// });
 
-function validateDownloadForm(data) {
-    if (!data.email || !isValidEmail(data.email)) {
-        showNotification('Por favor, ingresa un correo electrónico válido.', 'error');
-        return false;
-    }
-    
-    if (!data.whatsapp || data.whatsapp.length < 10) {
-        showNotification('Por favor, ingresa un número de WhatsApp válido.', 'error');
-        return false;
-    }
-    
-    return true;
-}
+// function validateDownloadForm(data) {
+//     if (!data.email || !isValidEmail(data.email)) {
+//         showNotification('Por favor, ingresa un correo electrónico válido.', 'error');
+//         return false;
+//     }
+//     
+//     if (!data.whatsapp || data.whatsapp.length < 10) {
+//         showNotification('Por favor, ingresa un número de WhatsApp válido.', 'error');
+//         return false;
+//     }
+//     
+//     return true;
+// }
 
-async function sendDownloadData(data) {
-    try {
-        const response = await fetch('/api/download', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        });
-        
-        const result = await response.json();
-        return result;
-    } catch (error) {
-        console.error('Error sending download data:', error);
-        throw error;
-    }
-}
+// async function sendDownloadData(data) {
+//     try {
+//         const response = await fetch('/api/download', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//             },
+//             body: JSON.stringify(data)
+//         });
+//         
+//         const result = await response.json();
+//         return result;
+//     } catch (error) {
+//         console.error('Error sending download data:', error);
+//         throw error;
+//     }
+// }
