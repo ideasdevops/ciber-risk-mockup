@@ -29,7 +29,7 @@ SMTP_CONFIG = {
 
 # Configuración del curso
 COURSE_INFO = {
-    'name': 'Curso de Desarrollo No-Code con IA',
+    'name': 'Seguro de Riesgos Cibernéticos - Del Campo Seguros',
     'price': '$69 USD',
     'duration': '8 horas total (4 clases de 2hs)',
     'sessions': '4 clases online en vivo',

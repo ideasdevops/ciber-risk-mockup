@@ -187,14 +187,14 @@ body {
 }
 
 .btn-primary {
-    background: #009900;
+    background: #00BFFF;
     color: white;
 }
 
 .btn-primary:hover {
-    background: #007700;
+    background: #0099CC;
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(0, 153, 0, 0.3);
+    box-shadow: 0 10px 25px rgba(0, 191, 255, 0.3);
 }
 
 .btn-secondary {
@@ -241,7 +241,7 @@ body {
 
 .card i {
     font-size: 2.5rem;
-    color: #009900;
+    color: #00BFFF;
 }
 
 .card span {
@@ -379,7 +379,7 @@ body {
 .class-number {
     width: 60px;
     height: 60px;
-    background: #009900;
+    background: #00BFFF;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -418,7 +418,7 @@ body {
 }
 
 .topic-time {
-    background: #009900;
+    background: #00BFFF;
     color: white;
     padding: 0.5rem 1rem;
     border-radius: 20px;
@@ -439,7 +439,7 @@ body {
 }
 
 .topic-content h4 i {
-    color: #009900;
+    color: #00BFFF;
 }
 
 .topic-content ul {
@@ -458,7 +458,7 @@ body {
     content: '✓';
     position: absolute;
     left: 0;
-    color: #10b981;
+    color: #00BFFF;
     font-weight: bold;
 }
 
@@ -684,7 +684,7 @@ body {
 .price-promotional {
     font-size: 3rem;
     font-weight: 700;
-    color: #009900;
+    color: #00BFFF;
 }
 
 .price-features {
@@ -700,7 +700,7 @@ body {
 }
 
 .feature i {
-    color: #009900;
+    color: #00BFFF;
     font-size: 1.1rem;
 }
 
@@ -739,7 +739,7 @@ body {
 .form-group select:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: #009900;
+    border-color: #00BFFF;
 }
 
 .form-group textarea {
@@ -794,7 +794,7 @@ body {
 }
 
 .social-links a:hover {
-    background: #009900;
+    background: #00BFFF;
 }
 
 .footer-bottom {

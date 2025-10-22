@@ -2,7 +2,7 @@
 const CONFIG = {
     // Información del curso
     curso: {
-        titulo: "Curso de Desarrollo No-Code con IA",
+        titulo: "Seguro de Riesgos Cibernéticos - Del Campo Seguros",
         subtitulo: "Crea sitios web, bots y automatizaciones sin programar usando IA",
         duracion: "8 horas total (4 clases de 2hs)",
         clases: "4 clases",
@@ -95,7 +95,7 @@ const CONFIG = {
 
     // Configuración de SEO
     seo: {
-        titulo: "Curso de Desarrollo No-Code con IA",
+        titulo: "Seguro de Riesgos Cibernéticos - Del Campo Seguros",
         descripcion: "Aprende a crear sitios web, bots y automatizaciones sin programar usando IA. Deploy en VPS con Docker y Ubuntu.",
         palabras_clave: "curso desarrollo no-code, IA, sitios web, bots, automatizaciones, docker, ubuntu, cursor",
         imagen_og: "https://ejemplo.com/imagen-og.jpg",
