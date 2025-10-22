@@ -96,15 +96,15 @@ async function sendRegistrationData(data) {
 
 // Form validation
 function validateForm(data) {
-    const requiredFields = ['nombre', 'email', 'telefono', 'experiencia'];
+    const requiredFields = ['nombre', 'email', 'telefono', 'empresa', 'sector', 'empleados'];
     let isValid = true;
     
     requiredFields.forEach(field => {
         const input = document.getElementById(field);
-        if (!data[field] || data[field].trim() === '') {
+        if (input && (!data[field] || data[field].trim() === '')) {
             showFieldError(input, 'Este campo es obligatorio');
             isValid = false;
-        } else {
+        } else if (input) {
             clearFieldError(input);
         }
     });
@@ -114,8 +114,10 @@ function validateForm(data) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (email && !emailRegex.test(email)) {
         const emailInput = document.getElementById('email');
-        showFieldError(emailInput, 'Por favor ingresa un email válido');
-        isValid = false;
+        if (emailInput) {
+            showFieldError(emailInput, 'Por favor ingresa un email válido');
+            isValid = false;
+        }
     }
     
     return isValid;
@@ -123,6 +125,8 @@ function validateForm(data) {
 
 // Show field error
 function showFieldError(input, message) {
+    if (!input) return;
+    
     clearFieldError(input);
     
     const errorDiv = document.createElement('div');
@@ -132,12 +136,16 @@ function showFieldError(input, message) {
     errorDiv.style.fontSize = '0.875rem';
     errorDiv.style.marginTop = '0.25rem';
     
-    input.parentNode.appendChild(errorDiv);
-    input.style.borderColor = '#ef4444';
+    if (input.parentNode) {
+        input.parentNode.appendChild(errorDiv);
+        input.style.borderColor = '#ef4444';
+    }
 }
 
 // Clear field error
 function clearFieldError(input) {
+    if (!input || !input.parentNode) return;
+    
     const existingError = input.parentNode.querySelector('.field-error');
     if (existingError) {
         existingError.remove();

@@ -3,7 +3,7 @@ const CONFIG = {
     // Información del curso
     curso: {
         titulo: "Seguro de Riesgos Cibernéticos - Del Campo Seguros",
-        subtitulo: "Crea sitios web, bots y automatizaciones sin programar usando IA",
+        subtitulo: "Protege tu empresa de ataques digitales con cobertura especializada y respaldo de las mejores aseguradoras del mercado",
         duracion: "8 horas total (4 clases de 2hs)",
         clases: "4 clases",
         precio: 69,
