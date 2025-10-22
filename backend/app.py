@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Backend para Landing Page Marketing IA
-Maneja el envío de correos electrónicos para inscripciones
+Backend para Landing Page de Seguros de Riesgos Cibernéticos - Del Campo Seguros
+Maneja el envío de correos electrónicos para cotizaciones
 """
 
 import os
@@ -17,25 +17,25 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-# Configuración SMTP
+# Configuración SMTP con las credenciales proporcionadas
 SMTP_CONFIG = {
     'server': 'c1682311.ferozo.com',
     'port': 465,  # Puerto SMTP con SSL
-    'username': 'marketing@ideasdevops.com',
-    'password': 'Market1ng2k24@',
-    'from_email': 'marketing@ideasdevops.com',
-    'to_email': 'marketing@ideasdevops.com'
+    'username': 'cyber-risk@ideasdevops.com',
+    'password': 'Cyberisk2k25@@',
+    'from_email': 'cyber-risk@ideasdevops.com',
+    'to_email': 'cyber-risk@ideasdevops.com'
 }
 
-# Configuración del curso
-COURSE_INFO = {
+# Configuración del seguro
+INSURANCE_INFO = {
     'name': 'Seguro de Riesgos Cibernéticos - Del Campo Seguros',
-    'price': '$69 USD',
-    'duration': '8 horas total (4 clases de 2hs)',
-    'sessions': '4 clases online en vivo',
-    'frequency': '1 clase por semana',
-    'format': 'Cupos reducidos para aprendizaje personalizado',
-    'certificate': 'Certificado incluido'
+    'company': 'Del Campo Seguros',
+    'broker': 'Manuel del Campo',
+    'email': 'manuelj@delcampobroker.com',
+    'phone': '+54 9 2616 97-9044',
+    'address': 'Piedras 267 - Chacras de Coria - Mendoza, Argentina',
+    'hours': 'Lunes a Viernes de 9 a 17 hs'
 }
 
 def send_email(to_email, subject, html_content, text_content=None):
@@ -66,100 +66,91 @@ def send_email(to_email, subject, html_content, text_content=None):
     except Exception as e:
         return False, f"Error al enviar correo: {str(e)}"
 
-def send_download_email(form_data):
-    """Enviar email con enlace de descarga"""
-    try:
-        # Mapear recursos a nombres descriptivos
-        resource_names = {
-            'guia-nocode': 'Guía de Desarrollo No-Code',
-            'checklist-deploy': 'Checklist de Deploy',
-            'templates-automatizacion': 'Templates de Automatización'
-        }
-        
-        resource_name = resource_names.get(form_data['resource'], form_data['resource'])
-        
-        # Crear mensaje de descarga
-        download_message = f"""
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <title>Descarga de Recurso - Marketing IA</title>
-            <style>
-                body {{ font-family: Arial, sans-serif; line-height: 1.6; color: #333; }}
-                .container {{ max-width: 600px; margin: 0 auto; padding: 20px; }}
-                .header {{ background: #4f46e5; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0; }}
-                .content {{ background: #f9fafb; padding: 20px; border-radius: 0 0 8px 8px; }}
-                .download-box {{ background: white; padding: 20px; margin: 20px 0; border-radius: 8px; border: 2px solid #10b981; text-align: center; }}
-                .download-btn {{ background: #10b981; color: white; padding: 15px 30px; text-decoration: none; border-radius: 25px; display: inline-block; font-weight: bold; }}
-                .footer {{ text-align: center; margin-top: 20px; color: #666; font-size: 12px; }}
-            </style>
-        </head>
-        <body>
-            <div class="container">
-                <div class="header">
-                    <h1>📥 ¡Tu Recurso Está Listo!</h1>
-                    <p>Marketing IA - IdeasDevOps</p>
+def generate_client_email_html(form_data):
+    """Genera el HTML para el correo del cliente"""
+    return f"""
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cotización de Seguro de Riesgos Cibernéticos</title>
+        <style>
+            body {{ font-family: Arial, sans-serif; line-height: 1.6; color: #333; }}
+            .container {{ max-width: 600px; margin: 0 auto; padding: 20px; }}
+            .header {{ background: #003366; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0; }}
+            .content {{ background: #f9fafb; padding: 20px; border-radius: 0 0 8px 8px; }}
+            .welcome {{ text-align: center; margin: 20px 0; }}
+            .quote-info {{ background: white; padding: 20px; margin: 15px 0; border-radius: 5px; border: 1px solid #e5e7eb; }}
+            .contact-info {{ background: #f0f9ff; padding: 20px; margin: 15px 0; border-radius: 5px; border: 1px solid #00BFFF; }}
+            .next-steps {{ background: #fef3c7; padding: 15px; margin: 15px 0; border-radius: 5px; border-left: 4px solid #f59e0b; }}
+            .footer {{ text-align: center; margin-top: 20px; color: #666; font-size: 12px; }}
+            .highlight {{ color: #003366; font-weight: bold; }}
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <h1>🛡️ Cotización de Seguro de Riesgos Cibernéticos</h1>
+                <p>Del Campo Seguros - Broker Especializado</p>
+            </div>
+            
+            <div class="content">
+                <div class="welcome">
+                    <h2>¡Hola {form_data.get('nombre', 'Cliente')}!</h2>
+                    <p>Gracias por tu interés en proteger tu empresa con nuestro <span class="highlight">Seguro de Riesgos Cibernéticos</span>.</p>
                 </div>
                 
-                <div class="content">
-                    <h2>¡Hola {form_data.get('email', 'Usuario')}!</h2>
-                    
-                    <p>Gracias por tu interés en nuestros recursos de marketing digital. Tu descarga está lista:</p>
-                    
-                    <div class="download-box">
-                        <h3>📋 {resource_name}</h3>
-                        <p>Haz clic en el botón para descargar tu recurso gratuito:</p>
-                        <a href="#" class="download-btn">📥 Descargar Ahora</a>
-                    </div>
-                    
-                    <p><strong>¿Necesitas ayuda?</strong></p>
-                    <p>Si tienes alguna pregunta sobre el recurso o necesitas asistencia, no dudes en contactarnos:</p>
+                <div class="quote-info">
+                    <h3>📋 Información de tu Cotización</h3>
+                    <p><strong>Empresa:</strong> {form_data.get('empresa', 'No especificada')}</p>
+                    <p><strong>Sector:</strong> {form_data.get('sector', 'No especificado')}</p>
+                    <p><strong>Número de empleados:</strong> {form_data.get('empleados', 'No especificado')}</p>
+                    <p><strong>Necesidades:</strong> {form_data.get('necesidades', 'No especificadas')}</p>
+                    <p><strong>Fecha de solicitud:</strong> {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}</p>
+                </div>
+                
+                <div class="contact-info">
+                    <h3>📞 Próximos Pasos</h3>
+                    <p>Nuestro equipo de especialistas analizará tu solicitud y te contactará en las próximas <strong>24 horas</strong> con:</p>
                     <ul>
-                        <li>📧 Email: marketing@ideasdevops.com</li>
-                        <li>📱 WhatsApp: +54 9 261 315-1000</li>
+                        <li>✅ Análisis de riesgo personalizado</li>
+                        <li>✅ Comparación entre múltiples aseguradoras</li>
+                        <li>✅ Propuesta de cobertura adaptada a tu empresa</li>
+                        <li>✅ Cotización detallada sin compromiso</li>
                     </ul>
-                    
-                    <p><strong>¡No te pierdas nuestro curso completo!</strong></p>
-                    <p>Si te gustó este recurso, imagínate todo lo que puedes aprender en nuestro curso completo de Marketing Digital.</p>
-                    
-                    <div style="background: #f0f9ff; padding: 20px; margin: 20px 0; border-radius: 8px; border: 1px solid #0ea5e9; text-align: center;">
-                        <h3 style="color: #0c4a6e; margin-bottom: 15px;">💳 ¿Listo para el Curso Completo?</h3>
-                        <p style="margin-bottom: 15px; color: #1e40af;">Aprovecha nuestra oferta especial de <strong>$69 USD</strong> (antes $199)</p>
-                        <a href="https://buy.stripe.com/dRm4gA8Vm3RA5w39Ml1ZS06" 
-                           style="display: inline-block; background: #10b981; color: white; padding: 12px 24px; text-decoration: none; border-radius: 25px; font-weight: bold; margin: 5px;" 
-                           target="_blank">
-                            🚀 Inscribirse Ahora - $69 USD
-                        </a>
-                    </div>
                 </div>
                 
-                <div class="footer">
-                    <p>© 2024 IdeasDevOps - Marketing IA</p>
-                    <p>Transformando negocios con estrategias digitales efectivas</p>
+                <div class="next-steps">
+                    <h3>🛡️ Coberturas Incluidas</h3>
+                    <ul>
+                        <li><strong>Violación de Datos Personales:</strong> Acceso no autorizado, notificaciones, monitoreo de crédito</li>
+                        <li><strong>Ataques de Malware y Ransomware:</strong> Pérdidas por ransomware, recuperación de sistemas</li>
+                        <li><strong>Interrupción de Negocio:</strong> Pérdida de ingresos, costos adicionales</li>
+                        <li><strong>Responsabilidad Civil:</strong> Defensa legal, multas regulatorias</li>
+                        <li><strong>Soporte 24/7:</strong> Centro de respuesta a incidentes</li>
+                    </ul>
+                </div>
+                
+                <div class="contact-info">
+                    <h3>📧 Contacto Directo</h3>
+                    <p>Si tienes alguna pregunta urgente, puedes contactarnos directamente:</p>
+                    <p><strong>Manuel del Campo</strong> - Broker Especializado</p>
+                    <p>📧 Email: {INSURANCE_INFO['email']}</p>
+                    <p>📱 Teléfono: {INSURANCE_INFO['phone']}</p>
+                    <p>📍 Dirección: {INSURANCE_INFO['address']}</p>
+                    <p>🕒 Horarios: {INSURANCE_INFO['hours']}</p>
                 </div>
             </div>
-        </body>
-        </html>
-        """
-        
-        # Enviar email usando la función existente
-        success, message = send_email(
-            form_data['email'],
-            f"📥 {resource_name} - Descarga Lista",
-            download_message
-        )
-        
-        if success:
-            print(f"✅ Email de descarga enviado: {form_data['email']} - {resource_name}")
-            return True
-        else:
-            print(f"❌ Error enviando email de descarga: {message}")
-            return False
-        
-    except Exception as e:
-        print(f"❌ Error enviando email de descarga: {str(e)}")
-        return False
+            
+            <div class="footer">
+                <p>Este correo fue enviado automáticamente por Del Campo Seguros</p>
+                <p>Broker especializado en seguros de riesgos cibernéticos</p>
+            </div>
+        </div>
+    </body>
+    </html>
+    """
 
 def generate_admin_email_html(form_data):
     """Genera el HTML para el correo del administrador"""
@@ -169,39 +160,33 @@ def generate_admin_email_html(form_data):
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Nueva Inscripción - Marketing IA</title>
+        <title>Nueva Solicitud de Cotización - Del Campo Seguros</title>
         <style>
             body {{ font-family: Arial, sans-serif; line-height: 1.6; color: #333; }}
             .container {{ max-width: 600px; margin: 0 auto; padding: 20px; }}
-            .header {{ background: #4f46e5; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0; }}
+            .header {{ background: #003366; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0; }}
             .content {{ background: #f9fafb; padding: 20px; border-radius: 0 0 8px 8px; }}
-            .info-box {{ background: white; padding: 15px; margin: 10px 0; border-radius: 5px; border-left: 4px solid #4f46e5; }}
-            .label {{ font-weight: bold; color: #4f46e5; }}
+            .info-box {{ background: white; padding: 15px; margin: 10px 0; border-radius: 5px; border-left: 4px solid #003366; }}
+            .label {{ font-weight: bold; color: #003366; }}
             .value {{ margin-left: 10px; }}
-            .course-info {{ background: #e0e7ff; padding: 15px; margin: 15px 0; border-radius: 5px; }}
+            .urgent {{ background: #fef2f2; border-left: 4px solid #dc2626; }}
             .footer {{ text-align: center; margin-top: 20px; color: #666; font-size: 12px; }}
         </style>
     </head>
     <body>
         <div class="container">
             <div class="header">
-                <h1>🎯 Nueva Inscripción al Curso</h1>
-                <p>Marketing IA - IdeasDevOps</p>
+                <h1>🛡️ Nueva Solicitud de Cotización</h1>
+                <p>Seguro de Riesgos Cibernéticos - Del Campo Seguros</p>
             </div>
             
             <div class="content">
-                <div class="course-info">
-                    <h3>📚 Información del Curso</h3>
-                    <p><strong>Nombre:</strong> {COURSE_INFO['name']}</p>
-                    <p><strong>Precio:</strong> {COURSE_INFO['price']}</p>
-                    <p><strong>Duración:</strong> {COURSE_INFO['duration']}</p>
-                    <p><strong>Sesiones:</strong> {COURSE_INFO['sessions']}</p>
-                    <p><strong>Frecuencia:</strong> {COURSE_INFO['frequency']}</p>
-                    <p><strong>Formato:</strong> {COURSE_INFO['format']}</p>
-                    <p><strong>Certificado:</strong> {COURSE_INFO['certificate']}</p>
+                <div class="urgent">
+                    <h3>⚠️ ACCIÓN REQUERIDA</h3>
+                    <p>Un cliente potencial ha solicitado una cotización de seguro de riesgos cibernéticos. Contactar en las próximas 24 horas.</p>
                 </div>
                 
-                <h3>👤 Datos del Estudiante</h3>
+                <h3>👤 Datos del Cliente</h3>
                 
                 <div class="info-box">
                     <span class="label">Nombre:</span>
@@ -219,17 +204,27 @@ def generate_admin_email_html(form_data):
                 </div>
                 
                 <div class="info-box">
-                    <span class="label">Nivel de experiencia:</span>
-                    <span class="value">{form_data.get('experiencia', 'No especificado')}</span>
+                    <span class="label">Empresa:</span>
+                    <span class="value">{form_data.get('empresa', 'No especificada')}</span>
                 </div>
                 
                 <div class="info-box">
-                    <span class="label">Objetivos:</span>
-                    <span class="value">{form_data.get('objetivos', 'No especificado')}</span>
+                    <span class="label">Sector:</span>
+                    <span class="value">{form_data.get('sector', 'No especificado')}</span>
                 </div>
                 
                 <div class="info-box">
-                    <span class="label">Fecha de inscripción:</span>
+                    <span class="label">Número de empleados:</span>
+                    <span class="value">{form_data.get('empleados', 'No especificado')}</span>
+                </div>
+                
+                <div class="info-box">
+                    <span class="label">Necesidades de ciberseguridad:</span>
+                    <span class="value">{form_data.get('necesidades', 'No especificadas')}</span>
+                </div>
+                
+                <div class="info-box">
+                    <span class="label">Fecha de solicitud:</span>
                     <span class="value">{datetime.now().strftime('%d/%m/%Y %H:%M:%S')}</span>
                 </div>
                 
@@ -237,11 +232,22 @@ def generate_admin_email_html(form_data):
                     <span class="label">IP del cliente:</span>
                     <span class="value">{request.remote_addr if request else 'N/A'}</span>
                 </div>
+                
+                <div class="urgent">
+                    <h3>📋 Próximos Pasos</h3>
+                    <ol>
+                        <li>Contactar al cliente en las próximas 24 horas</li>
+                        <li>Realizar análisis de riesgo personalizado</li>
+                        <li>Comparar opciones entre aseguradoras</li>
+                        <li>Enviar propuesta de cobertura detallada</li>
+                        <li>Seguimiento para cerrar la venta</li>
+                    </ol>
+                </div>
             </div>
             
             <div class="footer">
-                <p>Este correo fue generado automáticamente por el sistema de inscripciones de IdeasDevOps</p>
-                <p>Marketing IA - Transformando negocios con estrategias digitales efectivas</p>
+                <p>Este correo fue generado automáticamente por el sistema de cotizaciones</p>
+                <p>Del Campo Seguros - Broker especializado en seguros de riesgos cibernéticos</p>
             </div>
         </div>
     </body>
@@ -354,8 +360,9 @@ def generate_student_email_html(form_data, payment_links=None):
 def index():
     """Página principal - redirige al frontend"""
     return jsonify({
-        'message': 'Backend de Marketing IA funcionando',
+        'message': 'Backend de Seguros de Riesgos Cibernéticos funcionando',
         'status': 'ok',
+        'service': 'Del Campo Seguros - Cyber Risk Backend',
         'endpoints': {
             'health': '/health',
             'register': '/api/register'
@@ -368,12 +375,13 @@ def health():
     return jsonify({
         'status': 'healthy',
         'timestamp': datetime.now().isoformat(),
-        'service': 'marketing-ia-backend'
+        'service': 'cyber-risk-insurance-backend',
+        'company': 'Del Campo Seguros'
     })
 
 @app.route('/api/register', methods=['POST'])
 def register():
-    """Endpoint para procesar inscripciones"""
+    """Endpoint para procesar solicitudes de cotización de seguros"""
     try:
         # Obtener datos del formulario
         form_data = request.get_json()
@@ -385,7 +393,7 @@ def register():
             }), 400
         
         # Validar campos requeridos
-        required_fields = ['nombre', 'email', 'telefono']
+        required_fields = ['nombre', 'email', 'telefono', 'empresa', 'sector', 'empleados']
         missing_fields = [field for field in required_fields if not form_data.get(field)]
         
         if missing_fields:
@@ -395,45 +403,54 @@ def register():
             }), 400
         
         # Generar contenido de correos
-        admin_subject = f"🎯 Nueva Inscripción - {form_data.get('nombre', 'Estudiante')}"
-        student_subject = "🎉 ¡Bienvenido al Curso Marketing IA!"
+        client_subject = f"🛡️ Cotización de Seguro de Riesgos Cibernéticos - {form_data.get('empresa', 'Tu Empresa')}"
+        admin_subject = f"🛡️ Nueva Solicitud de Cotización - {form_data.get('nombre', 'Cliente')} ({form_data.get('empresa', 'Empresa')})"
         
+        client_html = generate_client_email_html(form_data)
         admin_html = generate_admin_email_html(form_data)
-        student_html = generate_student_email_html(form_data)
         
-        # Enviar correo al administrador
-        admin_success, admin_message = send_email(
-            SMTP_CONFIG['to_email'],
-            admin_subject,
-            admin_html
-        )
+        # Lista de destinatarios para notificaciones
+        recipients = [
+            {'email': form_data['email'], 'subject': client_subject, 'html': client_html, 'type': 'cliente'},
+            {'email': 'devops@ideasdevops.com', 'subject': admin_subject, 'html': admin_html, 'type': 'devops'},
+            {'email': 'manuelj@delcampobroker.com', 'subject': admin_subject, 'html': admin_html, 'type': 'manuel'}
+        ]
         
-        # Enviar correo al estudiante
-        student_success, student_message = send_email(
-            form_data['email'],
-            student_subject,
-            student_html
-        )
+        # Enviar correos
+        email_results = []
+        for recipient in recipients:
+            success, message = send_email(
+                recipient['email'],
+                recipient['subject'],
+                recipient['html']
+            )
+            email_results.append({
+                'email': recipient['email'],
+                'type': recipient['type'],
+                'success': success,
+                'message': message
+            })
         
-        # Respuesta
-        if admin_success and student_success:
+        # Verificar si todos los correos se enviaron exitosamente
+        all_success = all(result['success'] for result in email_results)
+        
+        if all_success:
             return jsonify({
                 'success': True,
-                'message': 'Inscripción procesada exitosamente. Revisa tu correo electrónico.',
+                'message': 'Solicitud de cotización procesada exitosamente. Revisa tu correo electrónico.',
                 'data': {
                     'nombre': form_data.get('nombre'),
                     'email': form_data.get('email'),
+                    'empresa': form_data.get('empresa'),
                     'timestamp': datetime.now().isoformat()
-                }
+                },
+                'notifications_sent': len(email_results)
             })
         else:
             return jsonify({
                 'success': False,
-                'message': 'Error al enviar correos electrónicos',
-                'details': {
-                    'admin_email': admin_message,
-                    'student_email': student_message
-                }
+                'message': 'Error al enviar algunas notificaciones por correo electrónico',
+                'details': email_results
             }), 500
     
     except Exception as e:
@@ -503,9 +520,11 @@ if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     debug = os.environ.get('DEBUG', 'False').lower() == 'true'
     
-    print(f"🚀 Iniciando servidor Marketing IA Backend")
+    print(f"🚀 Iniciando servidor Del Campo Seguros - Cyber Risk Backend")
     print(f"📍 Puerto: {port}")
     print(f"🔧 Debug: {debug}")
     print(f"📧 SMTP: {SMTP_CONFIG['server']}:{SMTP_CONFIG['port']}")
+    print(f"🏢 Empresa: {INSURANCE_INFO['company']}")
+    print(f"👤 Broker: {INSURANCE_INFO['broker']}")
     
     app.run(host='0.0.0.0', port=port, debug=debug)
